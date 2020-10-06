@@ -58,6 +58,7 @@ function App() {
               description={article.description}
               content={article.content}
               urlToImage={article.urlToImage}
+              publishedAt={article.publishedAt}
               />
           </List.Item>)
       }
