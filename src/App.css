@@ -1,5 +1,12 @@
 .article {
 	display: flex;
 	flex-direction: column;
-	
+}
+
+.nav-links{
+	padding: .5rem;
+}
+
+.nav-links .link{
+	margin: .5rem;
 }
