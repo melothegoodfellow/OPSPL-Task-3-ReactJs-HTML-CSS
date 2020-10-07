@@ -10,3 +10,15 @@
 .nav-links .link{
 	margin: .5rem;
 }
+
+.home .range h3 {
+	margin: .5rem;
+}
+
+.search-box {
+	margin: .5rem;
+}
+
+.home .range .range-picker {
+	margin: .5rem;
+}

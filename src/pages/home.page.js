@@ -13,10 +13,11 @@ function HomePage() {
   const [ toDate, setToDate ] = useState();
   const [ articles, setArticles ] = useState([]);
   const { RangePicker } = DatePicker;
+  const { Search } = Input;
   const pageSize = 5;
   var loading = false;
 
-  const getNews = async () => {
+  const getNews = async (searchText) => {
     loading = true;
     const response = await axios.get(
       "http://newsapi.org/v2/everything?q="+searchText
@@ -28,24 +29,32 @@ function HomePage() {
 
   return (
     <div className="home">
-      <Input 
-        placeholder="Enter subject" 
-        value={searchText}
-        onChange={(event) => setSearchText(event.target.value)} />
-      <RangePicker
-        onChange={ (date, dateString) => {
-          setFromDate(dateString[0]);
-          setToDate(dateString[1]);
-        }
+      <div className="range">
+        <h3>
+          Please choose date range
+        </h3>
+        <div className="range-picker">
+          <RangePicker
+              onChange={ (date, dateString) => {
+                setFromDate(dateString[0]);
+                setToDate(dateString[1]);
+              }
+            }
+          />
+        </div>
+      </div>{
+        fromDate && toDate && 
+        <div className="search-box">
+          <Search
+            placeholder="Enter subject" 
+            value={searchText}
+            style={{ width: 200 }}
+            onSearch={searchText => {
+              console.log(searchText);
+              getNews(searchText);
+            }} />
+        </div>
       }
-      />
-      <Tooltip title="search">
-        <Button 
-          type="primary" 
-          shape="circle" 
-          icon={<SearchOutlined />} 
-          onClick={ getNews }/>
-      </Tooltip>
       <Articles 
         articles={articles}
         pageSize={pageSize}
