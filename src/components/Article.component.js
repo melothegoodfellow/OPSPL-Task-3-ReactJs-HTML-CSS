@@ -11,13 +11,18 @@ import {
 	getLocalStorage
 } from "../lib/localStorage.library";
 
-function Article(article) {
-
-	const markFavorite = (article) => {
-		let favorites = getLocalStorage("favorites") || [];
+const markFavorite = (article) => {
+	let favorites = getLocalStorage("favorites") || [];
+	let checkArticle = favorites.find((favorite) => 
+		favorite.urlToImage === article.urlToImage
+	);
+	if(!checkArticle) {
 		favorites.push(article);
 		setLocalStorage("favorites", favorites);
 	}
+}
+
+function Article(article) {
 
 	return (
 		<div className="article">
@@ -51,7 +56,7 @@ function Article(article) {
 		          type="primary" 
 		          shape="circle" 
 		          icon={<HeartOutlined />} 
-		          onClick={ markFavorite }/>
+		          onClick={ () => markFavorite(article) }/>
 		     </Tooltip>
 		</div>
 	);
